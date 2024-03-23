@@ -13,12 +13,12 @@ public class UsuarioServiceImpl {
 
     private final UsuarioRepository usuarioRepository;
 
-    private final CursoRepository cursoRepository;
+    private final CursoServiceImpl cursoServiceImpl;
 
     @Autowired
-    public UsuarioServiceImpl(UsuarioRepository usuarioRepository, CursoRepository cursoRepository) {
+    public UsuarioServiceImpl(UsuarioRepository usuarioRepository, CursoServiceImpl cursoServiceImpl) {
         this.usuarioRepository = usuarioRepository;
-        this.cursoRepository = cursoRepository;
+        this.cursoServiceImpl = cursoServiceImpl;
     }
 
 
@@ -28,18 +28,20 @@ public class UsuarioServiceImpl {
 
     public Flux<Usuario> findAll() {
         return usuarioRepository.findAll()
-                .flatMap(user -> cursoRepository.findCursoByIdusuario(user.getId())
-                .collectList().map(cursos -> {
-                    user.setCursos(cursos);
-                    return user;
-                }));
+                .flatMap(user -> cursoServiceImpl.findByCursoByUsuario(user.getId())
+                        .collectList().map(cursos -> {
+                            user.setCursos(cursos);
+                            return user;
+                        }));
     }
 
     public Flux<Usuario> findName(String name) {
-        return usuarioRepository.findbyName(name).flatMap(user -> cursoRepository.findCursoByIdusuario(user.getId()).map(curso -> {
-            user.getCursos().add(curso);
-            return user;
-        }));
+        return usuarioRepository.findbyName(name)
+                .flatMap(user -> cursoServiceImpl.findByCursoByUsuario(user.getId())
+                        .collectList().map(curso -> {
+                            user.setCursos(curso);
+                            return user;
+                        }));
     }
 
 

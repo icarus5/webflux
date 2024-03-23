@@ -9,7 +9,7 @@ import reactor.core.publisher.Flux;
 @Repository
 public interface UsuarioRepository extends ReactiveCrudRepository<Usuario, Long> {
 
-    @Query("select a from Usuario a where a.name=:name")
+    @Query("select * from Usuario a where a.name=:name")
     Flux<Usuario> findbyName(String name);
 
 }

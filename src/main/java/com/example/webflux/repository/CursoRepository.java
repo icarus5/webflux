@@ -12,4 +12,6 @@ public interface CursoRepository extends ReactiveCrudRepository<Curso, Long> {
 
     Flux<Curso> findCursoByIdusuario(Long idusuario);
 
+    Flux<Curso> findByName(String name);
+
 }

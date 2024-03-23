@@ -23,6 +23,10 @@ public class CursoServiceImpl {
         return cursoRepository.findCursoByIdusuario(idusuario);
     }
 
+    public Flux<Curso> findByName(String name) {
+        return cursoRepository.findByName(name);
+    }
+
     public Mono<Curso> save(Curso curso) {
         return cursoRepository.save(curso);
     }
