@@ -1,4 +1,4 @@
-drop table usuario;
+DROP TABLE IF EXISTS usuario;
 CREATE TABLE IF NOT EXISTS usuario
 (
     id
@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS usuario
     fecha TIMESTAMP
     );
 
-drop table curso;
+DROP TABLE IF EXISTS curso;
 CREATE TABLE IF NOT EXISTS curso
 (
     id
